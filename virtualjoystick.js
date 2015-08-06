@@ -27,8 +27,8 @@ var VirtualJoystick	= function(opts)
 	
 	if(this._stationaryBase === true){
 		this._baseEl.style.display	= "";
-		this._baseEl.style.left		= (this._baseX - this._baseEl.width /2)+"px";
-		this._baseEl.style.top		= (this._baseY - this._baseEl.height/2)+"px";
+		this._baseEl.style.left		= (this._baseX - parseInt(window.getComputedStyle(this._baseEl).width)/2)+"px";
+		this._baseEl.style.top		= (this._baseY - parseInt(window.getComputedStyle(this._baseEl).height)/2)+"px";
 	}
     
 	this._transform	= this._useCssTransform ? this._getTransformProperty() : false;
@@ -165,12 +165,12 @@ VirtualJoystick.prototype._onDown	= function(x, y)
 		this._baseX	= x;
 		this._baseY	= y;
 		this._baseEl.style.display	= "";
-		this._move(this._baseEl.style, (this._baseX - this._baseEl.width /2), (this._baseY - this._baseEl.height/2));
+		this._move(this._stickEl.style, (this._stickX - parseInt(window.getComputedStyle(this._stickEl).width)/2), (this._stickY - parseInt(window.getComputedStyle(this._stickEl).height)/2));
 	}
-	
+
 	this._stickX	= x;
 	this._stickY	= y;
-	
+
 	if(this._limitStickTravel === true){
 		var deltaX	= this.deltaX();
 		var deltaY	= this.deltaY();
@@ -181,11 +181,11 @@ VirtualJoystick.prototype._onDown	= function(x, y)
 			
 			this._stickX = stickNormalizedX * this._stickRadius + this._baseX;
 			this._stickY = stickNormalizedY * this._stickRadius + this._baseY;
-		} 	
+		}
 	}
-	
+
 	this._stickEl.style.display	= "";
-	this._move(this._stickEl.style, (this._stickX - this._stickEl.width /2), (this._stickY - this._stickEl.height/2));	
+	this._move(this._stickEl.style, (this._stickX - parseInt(window.getComputedStyle(this._stickEl).width)/2), (this._stickY - parseInt(window.getComputedStyle(this._stickEl).height)/2));
 }
 
 VirtualJoystick.prototype._onMove	= function(x, y)
@@ -204,11 +204,11 @@ VirtualJoystick.prototype._onMove	= function(x, y)
 			
 				this._stickX = stickNormalizedX * this._stickRadius + this._baseX;
 				this._stickY = stickNormalizedY * this._stickRadius + this._baseY;
-			} 		
+			}
 		}
-		
-        	this._move(this._stickEl.style, (this._stickX - this._stickEl.width /2), (this._stickY - this._stickEl.height/2));	
-	}	
+
+		this._move(this._stickEl.style, (this._stickX - parseInt(window.getComputedStyle(this._stickEl).width)/2), (this._stickY - parseInt(window.getComputedStyle(this._stickEl).height)/2));
+	}
 }
 
 
